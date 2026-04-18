@@ -51,7 +51,7 @@ Deforest-ZHS/
 ### 2. 获取代码并安装依赖
 
 ```bash
-git clone https://github.com/<your-name>/Deforest-ZHS.git
+git clone https://github.com/LZOI-ZJX/Deforest-ZHS.git
 cd Deforest-ZHS
 ```
 
