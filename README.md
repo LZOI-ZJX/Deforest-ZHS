@@ -1,8 +1,10 @@
 # Deforest-ZHS
 
-**项目 / 仓库名称：Deforest-ZHS**（以下文档中与路径、克隆命令中的目录名均以此为准。）
+**说话不带喵的是AI喵，AI生成的内容仅供参考喵**
 
-**Deforest-ZHS** 是基于 **Playwright (CDP) + PaddleOCR + DeepSeek** 的 Python 自动答题脚本：
+**项目名称：Deforest-ZHS**
+
+**Deforest-ZHS** 是基于 **Playwright (CDP) + PaddleOCR + DeepSeek** 的 Python 自动答题脚本： **对智慧树的牛头人喵，著名AI Gemini曾说：强行接管浏览器的控制权，当着原网页的面，把它的题目全做了。**
 
 - 从「作业/考试列表」扫描**可作答入口**（「开始答题 / 去作答 / 继续答题」等）；
 - 点击后自动切换到**新开的考试标签页**，OCR 截图识别题干与选项坐标、DeepSeek 给出答案、Playwright 按钮点选；
@@ -11,6 +13,8 @@
 - 本地 `cache/exam_completion.json` 留存**已完成考试名称**，避免重复答题。
 
 > **免责声明**：本项目仅用于个人学习与自动化技术研究，请遵守所在平台的服务条款，勿用于违反考试诚信、破坏平台秩序或涉嫌作弊的用途；由此产生的任何后果与作者无关。
+
+##平均准确率 77\%
 
 ---
 
@@ -43,7 +47,7 @@ Deforest-ZHS/
 
 ### 1. 准备 Python
 
-项目基于 **PaddleOCR / paddlepaddle**，官方发行包目前仅对 **Python 3.8 ~ 3.12** 提供 wheel；**Python 3.14** 通常尚无对应 wheel，请避免使用。
+项目基于 **PaddleOCR / paddlepaddle**，官方发行包目前仅对 **Python 3.8 ~ 3.12** 提供 wheel；**Python 3.14** 通常尚无对应 wheel，请避免使用。**Python3.14会爆炸的喵**
 
 - **推荐 Python 3.10**。
 - **Windows 用户**：若 `python` 指向 3.13 / 3.14，请改用 3.10 的绝对路径或通过 `py -3.10` 调用。
@@ -55,7 +59,7 @@ git clone https://github.com/LZOI-ZJX/Deforest-ZHS.git
 cd Deforest-ZHS
 ```
 
-创建虚拟环境（建议）：
+创建虚拟环境（建议）：**咱喵没用过喵**
 
 - **Windows PowerShell**
 
@@ -66,7 +70,7 @@ cd Deforest-ZHS
   ```
 
 - **macOS / Linux**
-
+  **只在Windows上跑过喵，Mac和Linux不知道能不能跑喵**
   ```bash
   python3.10 -m venv .venv
   source .venv/bin/activate
@@ -81,7 +85,7 @@ pip install -r requirements.txt
 
 > Windows 下若 `pip` 读 `requirements.txt` 报编码错误（如 cp932），先执行：`$env:PYTHONUTF8 = '1'`（PowerShell）再安装。
 
-### 3. 安装 Playwright 浏览器（可选）
+### 3. 安装 Playwright 浏览器（可选）**咱喵用的edge喵，这是啥喵**
 
 主流程**不**由 Playwright 拉起浏览器进程，而是通过 **CDP** 连接你已打开的 Chrome，因此 **不必**安装 Playwright 自带的 Chromium。若你在其它脚本里会 `chromium.launch()`，再执行：
 
@@ -98,9 +102,9 @@ Copy-Item config.example.yaml config.yaml
 cp config.example.yaml config.yaml
 ```
 
-编辑 `config.yaml`（对照 `config.example.yaml`）：
+编辑 `config.yaml`（对照 `config.example.yaml`）：**为了保护猫猫的API把没有上传config.yaml喵，要自己改名字填配置喵**
 
-- 默认仅对接 **DeepSeek**（见 `core/llm_brain.py`）；换模型需自行改代码。
+- 默认仅对接 **DeepSeek**（见 `core/llm_brain.py`）；换模型需自行改代码。**自己魔改喵**
 - `deepseek.api_key`：DeepSeek API Key（https://platform.deepseek.com ）。
 - **`browser.cdp_port`**：必须与下面「浏览器目标」中的 **`--remote-debugging-port`** 一致（默认 **9222**）。
 - `exam.submit`：是否答完后自动提交；`false` 时也可用命令行 `--no-submit` 强制不提交。
@@ -121,27 +125,13 @@ cp config.example.yaml config.yaml
 
 #### 5.2 Windows 路径写法（`user-data-dir`）
 
-- 使用 **盘符 + 反斜杠**，例如：`D:\tools\fuckxjp\Deforest-ZHS\chomepic`。
+- 使用 **盘符 + 反斜杠**，例如：`Z:<随便哪个文件夹>`。
 - 路径放在 **英文双引号**内。
-- 若克隆位置不是 `D:\tools\fuckxjp\Deforest-ZHS`，请把 **`Deforest-ZHS` 所在路径** 与 `\chomepic` 拼接成你自己的目录；不存在时 Chrome 会创建。
+- 若克隆位置不是 `Z:<随便哪个文件夹>`，请把 **`Deforest-ZHS` 所在路径** 与 `\chomepic` 拼接成你自己的目录；不存在时 Chrome 会创建。
 
-#### 5.3 推荐：命令行启动（Windows）
 
-Chrome 默认安装路径示例（按本机安装位置修改）：
 
-```powershell
-& "C:\Program Files\Google\Chrome\Application\chrome.exe" `
-  --remote-debugging-port=9222 `
-  --user-data-dir="D:\tools\fuckxjp\Deforest-ZHS\chomepic"
-```
-
-等价一行（CMD）：
-
-```bat
-"C:\Program Files\Google\Chrome\Application\chrome.exe" --remote-debugging-port=9222 --user-data-dir="D:\tools\fuckxjp\Deforest-ZHS\chomepic"
-```
-
-#### 5.4 可选：桌面快捷方式「目标」附加参数（Windows）
+#### 5.3 桌面快捷方式「目标」附加参数（Windows） **这么做会导致打开浏览器后所有网页退出登录喵，不过改回去就没问题了喵**
 
 适合固定一套参数、双击启动：
 
@@ -149,7 +139,7 @@ Chrome 默认安装路径示例（按本机安装位置修改）：
 2. 在 **快捷方式** 选项卡的 **目标(T)** 中，在**原有 `chrome.exe` 路径及结束引号之后**先输入**一个空格**，再粘贴：
 
    ```text
-   --remote-debugging-port=9222 --user-data-dir="D:\tools\fuckxjp\Deforest-ZHS\chomepic"
+   --remote-debugging-port=9222 --user-data-dir="Z:<随便哪个文件夹>"
    ```
 
 3. 若仓库不在 `D:` 盘，请把引号内路径改成你的 **`...\Deforest-ZHS\chomepic`**。
@@ -157,7 +147,7 @@ Chrome 默认安装路径示例（按本机安装位置修改）：
 **示例（目标框整行形态）**：
 
 ```text
-"C:\Program Files\Google\Chrome\Application\chrome.exe" --remote-debugging-port=9222 --user-data-dir="D:\tools\fuckxjp\Deforest-ZHS\chomepic"
+"C:\Program Files\Google\Chrome\Application\chrome.exe" --remote-debugging-port=9222 --user-data-dir="Z:<随便哪个文件夹>"
 ```
 
 #### 5.5 验证 CDP 是否可用
@@ -174,21 +164,13 @@ http://127.0.0.1:9222/json/version
 
 在上述 Chrome 中完成课程平台登录，打开 **作业/考试列表**，并将该标签**置于当前窗口最前**（脚本附着后取默认上下文中的活动页）。
 
-#### 5.7 macOS / Linux（自行替换路径）
 
-同样使用两个参数；`user-data-dir` 建议指向本仓库旁的独立目录，例如：
-
-```bash
-/Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome \
-  --remote-debugging-port=9222 \
-  --user-data-dir="$HOME/Deforest-ZHS/chomepic"
-```
-
-确保 `config.yaml` 里 `cdp_port` 与 `--remote-debugging-port` 一致。
 
 ### 6. 跑起来
 
-确保当前焦点标签 = 作业/考试列表，然后：
+确保当前焦点标签 = 作业/考试列表，然后：**这是初始界面**
+
+![](pic\ﾁｪﾏ・ﾘﾍｼ_20260418164238.jpg)
 
 ```bash
 python main.py
@@ -225,13 +207,9 @@ python main.py [--no-submit] [--list-url URL] [--test-list-scrape]
 
 ## 常见问题
 
-### Q1：跑起来一直卡在「连接 CDP 端口 9222 ...」
 
-- 按 **「5. 浏览器目标」** 检查 Chrome 是否已用 **`--remote-debugging-port`** 启动，且端口与 **`config.yaml` 中 `browser.cdp_port`** 一致。
-- 用浏览器打开 `http://127.0.0.1:9222/json/version`，应能返回 JSON；若不能，说明 CDP 未监听或未用正确参数启动。
-- 连接地址使用 **127.0.0.1**；若仅用 `localhost` 失败，多为 IPv6 解析问题，脚本内已优先 IPv4。
 
-### Q2：`paddlepaddle` 装不上 / `paddleocr` 找不到模块
+### Q：`paddlepaddle` 装不上 / `paddleocr` 找不到模块
 
 - 确认解释器是 **Python 3.10 ~ 3.12**（3.13/3.14 暂无 wheel）；
 - `pip install -r requirements.txt` 失败可改手动：
@@ -241,11 +219,11 @@ python main.py [--no-submit] [--list-url URL] [--test-list-scrape]
   ```
 - 国内网络可走镜像：`-i https://pypi.tuna.tsinghua.edu.cn/simple`。
 
-### Q3：OCR 模型首次会下载
+### Q：OCR 模型首次会下载
 
 PaddleOCR 会把 `PP-OCRv5` 等模型下载到用户主目录的 `~/.paddlex/official_models/`。首次启动稍慢属于正常现象；之后会走缓存。
 
-### Q4：列表里明明有「开始答题」但被跳过
+### Q：列表里明明有「开始答题」但被跳过
 
 这是 `list_entry_row_looks_completed` 的本地白名单太激进。若贵平台用了特殊词（例如「已提交卷」「已阅卷」），可以在 `main.py` 的同名函数里把正则扩一下。你也可以先用：
 
@@ -255,12 +233,12 @@ python main.py --test-list-scrape
 
 查看当前能抓到的行文本，再决定正则要不要改。
 
-### Q5：最后一题作答了但没点到「提交作业」
+### Q：最后一题作答了但没点到「提交作业」
 
 - `submit_exam_with_confirm` 会遍历主文档 + 所有 iframe，按「提交作业 / 交卷 / 保存并提交」等关键字点击，并接受原生 `confirm` 弹窗；
 - 若你们平台用了完全不同的提交控件文案，请在日志里找 `[提交]` 行，把真实按钮名发给脚本作者或自行追加到 `submit_labels` 元组。
 
-### Q6：是否支持多选题？
+### Q：是否支持多选题？
 
 支持。`LLMBrain.get_answer` 的 `answer` 字段是数组，脚本按字母顺序依次 DOM 点击。
 
@@ -283,4 +261,12 @@ python main.py --test-list-scrape
 
 ## License
 
-建议上传前在仓库根目录再新增一份许可证（如 MIT），本项目示例文件未附带 License 以避免误导。
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+
+MIT License © 2026 [LZOI_ZJXLZOI_ZJX]
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+本プロジェクトは MIT ライセンスの下で公開されています。詳細については [LICENSE](LICENSE) ファイルをご覧ください。
+
+本项目采用 MIT 许可证 - 查看 [LICENSE](LICENSE) 文件了解详情。
