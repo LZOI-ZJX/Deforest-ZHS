@@ -1,0 +1,70 @@
+# ---- Python ----
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+*.egg
+*.egg-info/
+dist/
+build/
+*.whl
+.python-version
+
+# ---- Virtual environments ----
+.venv/
+venv/
+ENV/
+env/
+
+# ---- Testing / type / lint caches ----
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+
+# ---- IDE & editors ----
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# ---- OS ----
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# ---- 机密与本地配置：不要把 API 密钥推到远端 ----
+.env
+.env.*
+!.env.example
+config.yaml
+config.local.yaml
+!config.example.yaml
+
+# ---- 运行缓存：截图、OCR 侧车、会话日志、本地完成标记 ----
+cache/
+
+# ---- 根目录下零散的测试截图（不纳入仓库） ----
+temp_screenshot.png
+_test_screenshot_ocr*.png
+
+# ---- 浏览器用户数据目录（放项目内时忽略） ----
+chomepic/
+chrome-*/
+ChromeProfile/
+
+# ---- 日志 ----
+*.log
+logs/
+
+# ---- Jupyter ----
+.ipynb_checkpoints/
+
+# ---- Playwright 本地元数据（浏览器缓存通常在用户目录外，无需忽略源） ----
+playwright-report/
+test-results/
+
+# ---- PaddleOCR / PaddleX 本地模型缓存一般位于用户主目录（~/.paddlex），
+#      如果你把它软链接进仓库，请解除链接或追加对应路径到此处。 ----
